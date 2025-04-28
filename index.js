@@ -10,6 +10,9 @@ const height = +element.offsetHeight;
 const centerX = width / 2;
 const centerY = height / 2;
 
+let lastIds = [];
+
+
 
 let myZoom = d3.zoom()
 	.on('zoom', handleZoom);
@@ -47,7 +50,7 @@ function redraw() {
     .data(nodes)
     .enter()
     .append('circle')
-    .attr('fill', (node) => node.color || 'gray')
+    .attr('fill', (node) => node.color)
     .attr('r', (node) => node.size || 10)
     .on("click", (event, d) => { focusNode(d.id); });
 
@@ -73,14 +76,15 @@ function redraw() {
 function getConnectedNodes(nodeId) {
   // Create a Set to store connected node IDs
   let connectedIds = new Set();
-
+  lastIds.push(nodeId); //add IDs to the array of last visited IDs.
+  
   // Loop through each link to find connections
   links = [];
   nodes = [];
   allLinks.forEach(link => {
       if (link.source === nodeId & link.group === 'INCLUDE') {
           connectedIds.add(link.target);
-          links.push({'source' : link.source, 'target': link.target, 'dash': "5,5", 'color':'lightgray'});
+          links.push({'source' : link.source, 'target': link.target, 'dash': "5,5", 'color':'gray'});
       } 
       else if (link.source === nodeId & link.group === 'PARENT') { // this node is a child of a parent
         connectedIds.add(link.target);
@@ -99,7 +103,7 @@ function getConnectedNodes(nodeId) {
   }
 
 function focusNode(nodeId) {
-  console.log('Focusing on:', nodeId)
+
   const selected = allNodes.find(n => n.id === nodeId);
   if (!selected) return;
 
@@ -117,7 +121,6 @@ function focusNode(nodeId) {
   selected.fy = height / 2;
   selected.color = 'red';
 
-  console.log(nodes);
  
   redraw();
   resetZoom();
@@ -181,7 +184,7 @@ simulation.on('tick', () => {
       .attr('cx', (node) => node.x)
       .attr('cy', (node) => node.y);
   
-  text.attr('x', (node) => node.x).attr('y', (node) => node.y);
+  text.attr('x', (node) => node.x).attr('y', (node) => node.y-18);
 
   lines
     .attr('x1', (link) => link.source.x)
@@ -223,5 +226,20 @@ searchInput.addEventListener("input", function () {
 
       resultsList.appendChild(li);
   });
+});
+
+
+// BUTTON FUNCTION
+document.getElementById('BackButton').addEventListener('click', function() {
+  if (lastIds.length > 1){
+  lastIds.pop(); //pop() removes the current element
+  }
+  if (lastIds.length > 0) {
+      // Get the last ID
+      let idToUse = lastIds.pop(); // pop() removes and returns the last element
+      focusNode(idToUse);
+  } else {
+      console.log("No more IDs left to use!");
+  }
 });
 
