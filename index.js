@@ -130,11 +130,12 @@ function focusNode(nodeId) {
   
   // Show in info box
   document.getElementById("info").innerHTML = `
-      <strong>Node Info:</strong><br>
+      <u><strong>Node Info:</strong></u><br><br>
       <!--ID: ${selected.id}<br>-->
-      <u>Archetype:</u> ${selected.archetype_id}<br><br>
+      <u>Archetype:</u> <b>${selected.archetype_id}</b><br><br>
       <u>Keywords:</u> ${selected.keywords}<br><br>
       <u>Purpose:</u> ${selected.purpose}<br><br>
+      <u>URL:</u> <a href="${selected.url}" target="_blank">${selected.url}</><br><br>
       <!--<u>Group:</u> ${selected.group}-->
   `;
   //create a list of nodes to show

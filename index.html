@@ -84,7 +84,7 @@
             right: 0;
             width: 400px;
             padding: 10px;
-            background: rgba(255, 255, 255, 0.7);
+            /*background: rgba(255, 255, 255, 0.7);*/
             text-align: left;
             z-index: 2;
             overflow: hidden;
@@ -108,10 +108,11 @@
 
         li{
             text-decoration: none;
-                    color: #333;
-                    display: block;
-                    word-wrap: break-word;
-                    padding: 5px 0;
+            color: #333;
+            display: block;
+            word-wrap: break-word;
+            padding: 5px 0;
+            background-color: white;
         }
 
         li:hover{
@@ -148,13 +149,13 @@
     <!--<svg id="network"></svg>-->
     <div id="headerOverlay">
         <h1>Tech-demo Archetype Explorer</h1>
-        <p>Archetypes from <a href="https://ckm.openehr.org/ckm/">CKM international</a>. State: 28/04/2025.<br>(c) 2025, CatSalut, Martin A. Koch, PhD.<br>Licensed under the Apache License, Version 2.0</p>
+        <p>Archetypes from <a href="https://ckm.openehr.org/ckm/" target="_blank">CKM international</a>. State: 28/04/2025.<br>(c) 2025, CatSalut, Martin A. Koch, PhD.<br>Licensed under the Apache License, Version 2.0</p>
     </div>
     <!--<div id="buttons"><button id="BackButton">BACK</button></div>-->
     <svg id="network"><g></g></svg>
     <div id="info"></div>
     <div id="searchmodule">
-        <input type="text" id="search" placeholder="Search for purpose, keywords or archetype_id..."/>  <button id="BackButton">◀ </button>
+        <input type="text" id="search" placeholder="Search for purpose, keywords or archetype_id..."/>  <button id="BackButton">❮❮</button>
         <ul id="results" style="list-style: none; padding: 0; margin-top: 5px;"></ul>
     </div>
     <script src="dataset.js"></script>
